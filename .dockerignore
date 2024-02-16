@@ -1,0 +1,4 @@
+Dockerfile
+.dockerignore
+.gitignoire
+node_modules

@@ -1,0 +1,2 @@
+docker build -t client-app-img .
+docker run --rm -p 3000:3000 client-app-img
