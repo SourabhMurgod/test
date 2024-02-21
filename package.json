@@ -42,5 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://3.136.187.122:8800/api/"
+  "options": {
+    "allowedHosts": ["localhost", ".localhost","3.136.187.122"],
+    "proxy": "http://3.136.187.122:8800/api/"
+  }
 }
