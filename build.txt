@@ -1,0 +1,21 @@
+version: 0.2
+env:
+  secrets-manager:
+    ACCESS_KEY: "arn:aws:secretsmanager:us-east-2:897154969014:secret:dev/clusterUser-kwQH86:access_key"
+    SECRET_KEY: "arn:aws:secretsmanager:us-east-2:897154969014:secret:dev/clusterUser-kwQH86:secret_key"
+
+phases:
+  build:
+    commands:
+       - docker ps
+       - ls
+       - aws configure set aws_access_key_id $ACCESS_KEY && aws configure set aws_secret_access_key $SECRET_KEY && aws configure set region us-east-2 && aws configure set output None
+       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v3a4a4n3
+       - docker build -t client .
+       - docker tag client:latest public.ecr.aws/v3a4a4n3/client:latest
+       - docker push public.ecr.aws/v3a4a4n3/client:latest
+       - aws eks update-kubeconfig --name service-cluster-in-01 --region us-east-2
+       - kubectl get ns
+       - kubectl get po -n test-react
+       - kubectl rollout restart deployment/react-webapp -n test-react
+       - kubectl get all -n test-react
