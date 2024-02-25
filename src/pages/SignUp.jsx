@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://3.136.187.122:8800/api/auth/register", inputs);
+      await axios.post("https://api-dev-react-cluster.vishalaws.tech/api/auth/register", inputs);
       navigate("/login");
     } catch (err) {
       setError(err.response.data);
